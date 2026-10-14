@@ -137,6 +137,35 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <!-- Firebase Setup (Connects phones & admin computer together) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+      getFirestore, 
+      collection, 
+      addDoc, 
+      onSnapshot, 
+      query, 
+      orderBy, 
+      serverTimestamp 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // REPLACE THESE VALUES WITH YOUR REAL KEYS FROM FIREBASE CONSOLE
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    window.db = getFirestore(app);
+    window.firestoreOps = { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp };
+  </script>
+
+  <!-- Main logic -->
+  <script src="app.js" defer></script>
 </body>
 </html>
