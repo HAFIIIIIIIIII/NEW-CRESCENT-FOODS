@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crescent Foods</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M32 6a18 18 0 1 0 10 32A15 15 0 0 1 32 6z" fill="#fca311"/>
+        <circle cx="36" cy="14" r="2.5" fill="#fca311"/>
+      </svg>
+      <div>
+        <h1>Crescent Foods</h1>
+        <p>Crescent Public School</p>
+      </div>
+    </div>
+    <div id="userChip" class="user-chip hidden">
+      <span id="userLabel"></span>
+      <button id="logoutBtn" class="btn-ghost">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- LOGIN -->
+    <section id="view-login" class="view active">
+      <div class="card login-card">
+        <h2 id="loginTitle">Welcome 👋</h2>
+        <p class="muted" id="loginSub">Log in with the student ID and password to order lunch.</p>
+        <form id="loginForm" autocomplete="off">
+          <label>Student ID
+            <input id="loginId" type="text" required placeholder="e.g. CPS1001">
+          </label>
+          <label>Password
+            <input id="loginPass" type="password" required placeholder="Password">
+          </label>
+          <p id="loginError" class="error"></p>
+          <button class="btn-primary" type="submit">Login</button>
+        </form>
+        <button id="toggleAdmin" class="link-btn" type="button">Admin login</button>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section id="view-menu" class="view">
+      <div class="section-head">
+        <h2>Today's Menu</h2>
+        <p class="muted" id="cutoffNote">Orders close at 10:00 AM.</p>
+      </div>
+      <div id="menuGrid" class="menu-grid"></div>
+      <div id="cartBar" class="cart-bar">
+        <div><strong id="cartCount">0 items</strong> · <span id="cartTotal">₹0</span></div>
+        <button id="cartCheckout" class="btn-primary">Checkout →</button>
+      </div>
+    </section>
+
+    <!-- SUCCESS -->
+    <section id="view-success" class="view">
+      <div class="card success-card">
+        <svg class="tick" viewBox="0 0 52 52" aria-hidden="true">
+          <circle class="tick-circle" cx="26" cy="26" r="24" fill="none"/>
+          <path class="tick-check" fill="none" d="M14 27 l8 8 l16-17"/>
+        </svg>
+        <h2>Order Confirmed!</h2>
+        <p class="muted">Order ID <strong id="sOrderId"></strong></p>
+        <div id="sSummary" class="receipt"></div>
+        <p class="pay-note">Please pay <strong id="sAmount"></strong> in cash at school.</p>
+        <button id="newOrderBtn" class="btn-primary">Back to menu</button>
+      </div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="view-admin" class="view">
+      <div class="section-head admin-head">
+        <h2>Orders</h2>
+        <div class="admin-controls">
+          <input id="adminDate" type="date">
+          <select id="adminClass"><option value="">All classes</option></select>
+          <button id="exportBtn" class="btn-ghost">Export CSV</button>
+        </div>
+      </div>
+      <div id="adminStats" class="stats"></div>
+      <div class="card table-card">
+        <h3>By class &amp; division</h3>
+        <div class="table-wrap"><table id="classTable"></table></div>
+      </div>
+      <div class="card table-card">
+        <h3>All orders</h3>
+        <div class="table-wrap"><table id="orderTable"></table></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- POPUP: item added -->
+  <div id="modalAdded" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="pop-icon">🛒</div>
+      <h3 id="addedTitle">Added!</h3>
+      <div id="addedLines" class="receipt"></div>
+      <div class="modal-actions">
+        <button id="addMoreBtn" class="btn-ghost">Add more</button>
+        <button id="proceedBtn" class="btn-primary">Proceed to checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP: checkout -->
+  <div id="modalCheckout" class="modal-backdrop">
+    <div class="modal-card">
+      <h3>Checkout</h3>
+      <div id="coLines" class="receipt"></div>
+      <form id="checkoutForm" autocomplete="off">
+        <label>Student name
+          <input id="coName" type="text" required placeholder="Full name">
+        </label>
+        <div class="row">
+          <label>Class
+            <select id="coClass" required><option value="">Select</option></select>
+          </label>
+          <label>Division
+            <select id="coDiv" required><option value="">Select</option></select>
+          </label>
+        </div>
+        <div id="confirmWrap" class="confirm-wrap">
+          <button id="confirmBtn" class="btn-primary" type="submit">Confirm order</button>
+        </div>
+      </form>
+      <button id="coCancel" class="link-btn" type="button">Cancel</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
